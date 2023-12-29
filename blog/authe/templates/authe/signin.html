@@ -1,0 +1,24 @@
+{% extends 'authe/index.html' %}
+{% load static %}
+{% block link %}<link rel="stylesheet" href="{% static 'authe/styles/style.css' %}"> {% endblock %}
+{% block div %}
+        <div class="right-btns">
+            <a href="{% url 'authe:signup' %}" class="signup btn btn-primary mb-1" style="background-color: #00A2DC;">Регистрация</a>
+            <a href="{% url 'authe:login' %}" class="signin btn btn-primary mb-1" style="background-color: #00A2DC;">Вход</a>
+        </div>
+{% endblock %}
+{% block main %}
+    <div class="d-flex align-items-center justify-content-center vh-100">
+        
+        <form action="{% url 'authe:login' %}" method="POST" class="d-flex justify-content-center flex-md-column">
+            <h1 class = "in">Вход</h1>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary" style="background-color: #00A2DC;">Войти</button>
+            <p>У вас нет аккаунта? <a href="{% url 'authe:signup' %}">Зарегистрироваться</a></p>
+        </form>
+    </div>
+    {% if err %}
+        {{err}}
+    {% endif %}
+{% endblock %}

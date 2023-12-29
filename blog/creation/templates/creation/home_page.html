@@ -1,0 +1,86 @@
+{% extends 'creation/base.html' %}
+{% load static %}
+{% block link %}<link rel="stylesheet" href="{% static 'creation/home_page.css' %}"> {% endblock %}
+{% block div %}
+    <div class="right-btns">
+        {% if request.user.is_authenticated %}
+            <div >
+                <a href="{% url 'authe:profile' %}" class="signup btn btn-primary" style="background-color: #00A2DC;">Профиль</a>
+                <a href="{% url 'authe:signout' %}" class="signin btn btn-primary" style="background-color: #00A2DC;">Выйти</a>
+            </div>
+        {% else %}
+            <div>
+                <a href="{% url 'authe:signup' %}" class="signup btn btn-primary mb-1" style="background-color: #00A2DC;">Регистрация</a>
+                <a href="{% url 'authe:login' %}" class="signin btn btn-primary mb-1" style="background-color: #00A2DC;">Вход</a>
+            </div>         
+        {% endif %}
+    </div>
+{% endblock %}
+{% block main %}
+<section class="main index-main">
+    <div class="main-content">
+        <div class="content">
+            {% for c in creation %}
+                <div class="creation--item mt-4 pt-4 ">
+                    <div class="creation-img">
+                        <img src="{{ c.image.url }}" alt="">
+                    </div>
+                    <div class="blog-info">
+                        <p class="publish_date">{{ c.publish_date }}, {{ c.category }}, {{ c.author }}</p>
+                        
+                    </div>
+                    <div class="title_desc">
+                        <h1>{{ c.title }}</h1>
+                        <p class="discription detail-desc mt-3">{{ c.description }}</p>
+                    </div>
+                </div>
+                <div class="comments">
+                    <h3 class="mb-2">Комментарии</h3>
+                    {% if request.user and request.user.is_authenticated %}
+                        <form action=""  onsubmit="sendComment(event)">
+                            {% csrf_token %}
+                            
+                            <textarea name="text" id="rateText" placeholder="Напишите комментарий" class="form-control mt-3" rows="1"></textarea>
+                            <input type="hidden" name="blog_id" id="blog_id" value="{{ blog.id }}">
+                            <input type="hidden" name="user_id" id="user_id" value="{{ request.user.id }}">
+                            <button type="submit" class="mt-2 btn btn-secondary" style="background-color: #00A2DC;">Отправить</button>
+                        </form>
+                        
+                    {% else %}
+                        <p>Для того чтобы оставить комментарий<a href="{% url 'authe:login' %}"> войдите</a> или <a href="{% url 'authe:signup' %}"> зарегистрируйтесь</a></p>
+                    {% endif %}
+        
+                    <div class="user-rates mt-4">
+                        {% for comment in comments %}
+                            <div class="rate--item mb-3">
+                                <span>
+                                    
+                                    <p class="rate-username">{{ comment.author.username }}</p>
+                                </span>
+                                <p>
+                                    {{ comment.text }}
+                                </p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                
+            {% endfor %}
+        </div>
+        <div class="main2-content">
+        
+        <div class="category">
+            <h1>Категории</h1>
+            {% for c in category %}
+                <div class="category--item mt-4 pt-4">
+                    <div class="category-info">
+                        <a href="{% url 'creation:category_page' category_id=c.id %}">{{ c.name }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>  
+        
+    </div>
+</section>
+
+{% endblock %}
+    

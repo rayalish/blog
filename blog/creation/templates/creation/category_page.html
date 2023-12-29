@@ -1,0 +1,55 @@
+{% extends 'creation/base.html' %}
+{% load static %}
+{% block link %}<link rel="stylesheet" href="{% static 'creation/category_page.css' %}"> {% endblock %}
+{% block div %}
+    <div class="right-btns">
+        {% if request.user.is_authenticated %}
+            <div >
+                <a href="{% url 'authe:profile' %}" class="signup btn btn-primary" style="background-color: #00A2DC;">Профиль</a>
+                <a href="{% url 'authe:signout' %}" class="signin btn btn-primary" style="background-color: #00A2DC;">Выйти</a>
+            </div>
+        {% else %}
+            <div>
+                <a href="{% url 'authe:signup' %}" class="signup btn btn-primary mb-1" style="background-color: #00A2DC;">Регистрация</a>
+                <a href="{% url 'authe:login' %}" class="signin btn btn-primary mb-1" style="background-color: #00A2DC;">Вход</a>
+            </div>         
+        {% endif %}
+    </div>
+{% endblock %}
+{% block main %}
+<section class="main index-main">
+    <div class="main-content">
+        <div class="content">
+            <h1 class="in">Блоги по категории: {{ selected_category.name }}</h1>
+            {% for blog in blogs_in_category %}
+                <div class="creation--item mt-4 pt-4 ">
+                    <div class="creation-img">
+                        <img src="{{ blog.image.url }}" alt="">
+                    </div>
+                    <div class="blog-info">
+                        <p class="publish_date">{{ blog.publish_date }}, {{ blog.category }}, {{ blog.author }}</p>
+                        <h1>{{ blog.title }}</h1>
+                        <p class="discription detail-desc mt-3">{{ blog.description }}</p>
+                    </div>
+                </div>
+                
+            {% endfor %}
+        </div>
+        <div class="main2-content">
+        
+        <div class="category">
+            <h1>Категории</h1>
+            {% for c in category %}
+                <div class="category--item mt-4 pt-4">
+                    <div class="category-info">
+                        <a href="{% url 'creation:category_page' category_id=c.id %}">{{ c.name }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+</section>
+
+{% endblock %}
+    

@@ -1,0 +1,26 @@
+{% extends 'creation/base.html' %}
+{% load static %}
+{% block link %}<link rel="stylesheet" href="{% static 'creation/create_blog.css' %}"> {% endblock %}
+{% block div %}
+    <div class="right-btns">
+        <a href="{% url 'authe:profile' %}" class="signup btn btn-primary" style="background-color: #00A2DC;">Профиль</a>
+        <a href="{% url 'authe:signout' %}" class="signin btn btn-primary" style="background-color: #00A2DC;">Выйти</a>
+    </div>
+{% endblock %}
+{% block main %}
+    <div class="main d-flex align-items-center justify-content-center vh-100 ">
+        <form action="{% url 'creation:creation' %}" method="POST" class="d-flex justify-content-center flex-md-column" enctype="multipart/form-data">
+        
+            <h1 class = "regist">Новый блог</h1>
+            {% csrf_token %}
+            {% for f in form %}
+            <p>
+                <label for="{{ f.id_for_label }}" class="form-label">{{ f.label }}:</label>
+                {{ f }}
+            </p>
+            <div class="form-error">{{ f.errors }}</div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary" style="background-color: #00A2DC;">Далее</button>
+        </form>
+    </div>
+{% endblock %}
