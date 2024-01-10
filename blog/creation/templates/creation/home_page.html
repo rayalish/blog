@@ -1,6 +1,9 @@
 {% extends 'creation/base.html' %}
 {% load static %}
-{% block link %}<link rel="stylesheet" href="{% static 'creation/home_page.css' %}"> {% endblock %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'creation/home_page.css' %}"> 
+<script src="{% static 'creation/comment.js' %}"></script>
+{% endblock %}
 {% block div %}
     <div class="right-btns">
         {% if request.user.is_authenticated %}
@@ -36,6 +39,22 @@
                 </div>
                 <div class="comments">
                     <h3 class="mb-2">Комментарии</h3>
+                </div>
+                <div class="ratings">
+                    
+        
+                    <div class="user-rates mt-4">
+                        {% for c in comment %}
+                            <div class="rate--item mb-3">
+                                
+                                <p class="rate-username">{{ c.author.username }}</p>
+                                
+                                <p>
+                                    {{ c.text }}
+                                </p>
+                            </div>
+                        {% endfor %}
+                    </div>
                     {% if request.user and request.user.is_authenticated %}
                         <form action=""  onsubmit="sendComment(event)">
                             {% csrf_token %}
@@ -83,4 +102,3 @@
 </section>
 
 {% endblock %}
-    

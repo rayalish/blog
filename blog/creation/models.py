@@ -22,7 +22,7 @@ class Category(models.Model):
     
 class Blog(models.Model):
     image = models.ImageField(blank=True, null=True, upload_to=uniq_name_upload)
-    publish_date = models.DateField()
+    publish_date = models.DateTimeField(auto_now_add = True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
@@ -45,4 +45,4 @@ class Blog(models.Model):
 class Comment(models.Model):
     comment = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    blog_id = models.ForeignKey(Blog, on_delete=models.CASCADE)
