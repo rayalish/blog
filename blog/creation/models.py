@@ -43,6 +43,6 @@ class Blog(models.Model):
         }
     
 class Comment(models.Model):
-    comment = models.TextField()
+    text = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    blog_id = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)

@@ -1,4 +1,4 @@
-const sendRate = (e) => {
+const sendComment = (e) => {
     e.preventDefault();
     const commentText = document.querySelector('#commentText').value;
     const blogId = document.querySelector('#blog_id').value;
@@ -16,6 +16,6 @@ const sendRate = (e) => {
     }).catch((error) => {
         console.log(error);
     })
-
+    
     window.location.reload();
 }
