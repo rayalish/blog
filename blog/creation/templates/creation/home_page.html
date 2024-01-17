@@ -2,6 +2,7 @@
 {% load static %}
 {% block link %}
 <link rel="stylesheet" href="{% static 'creation/home_page.css' %}"> 
+
 {% endblock %}
 {% block div %}
     <div class="right-btns">
@@ -33,12 +34,13 @@
                     </div>
                     <div class="title_desc">
                         <h1>{{ c.title }}</h1>
+                        
                         <p class="discription detail-desc mt-3">{{ c.description }}</p>
                     </div>
                     <div class="comments">
                         <h3 class="mb-2">Комментарии</h3>
                         <div class="ratings">
-                            {% for comment in c.comments.all %}
+                            {% for comment in comments %}
                                 <div class="rate--item mb-3">                                
                                     <p class="rate-username">{{ comment.author.username }}</p>
                                     <p>{{ comment.text }}</p>
@@ -48,7 +50,7 @@
                         {% if request.user and request.user.is_authenticated %}
                             <form action="" onsubmit="sendComment(event)">
                                 {% csrf_token %}
-                                <textarea name="text" id="rateText" placeholder="Напишите комментарий" class="form-control mt-3" rows="1"></textarea>
+                                <textarea name="text" id="commentText" placeholder="Напишите комментарий" class="form-control mt-3" rows="1"></textarea>
                                 <input type="hidden" name="blog_id" id="blog_id" value="{{ comment.id }}">
                                 <input type="hidden" name="user_id" id="user_id" value="{{ request.user.id }}">
                                 <button type="submit" class="mt-2 btn btn-secondary" style="background-color: #00A2DC;">Отправить</button>

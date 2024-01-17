@@ -14,3 +14,4 @@ class BlogCreationForm(forms.ModelForm):
             'author': forms.HiddenInput(attrs={'class': 'form-select'}),
             'category': forms.Select(attrs={'class': 'form-select'}),
         }   
+

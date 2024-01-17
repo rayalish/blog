@@ -53,8 +53,9 @@ class CreateBlog(View):
             }
 
             return render(request, 'creation/creation_page.html', context=context)
-    
+        
 
+    
 class EditBlog(View):
     def get(self, request, blog_id):
         blog = Blog.objects.get(id=blog_id)
@@ -110,6 +111,8 @@ class CategoryView(View):
 
         return render(request, 'creation/category_page.html', context=context)  
     
+
+    
 class CommentView(View):
     def post(self, request):
         data = json.loads(request.body.decode('utf-8'))
@@ -129,3 +132,4 @@ class CommentView(View):
         comment.save()
         
         return HttpResponse({'data': 'success'})
+    
