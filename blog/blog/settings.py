@@ -86,5 +86,5 @@ AUTH_USER_MODEL = 'authe.User'
 
 CORS_ALLOWED_ORIGINS = [ 
     'http://localhost:8000',
-    'http://164.90.235.130',
+    'http://159.89.0.117',
 ]
