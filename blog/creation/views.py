@@ -76,7 +76,6 @@ class EditBlog(View):
             if request.FILES:
                 blog.image = request.FILES['image']
             
-            blog.publish_date = request.POST['publish_date']
             blog.title = request.POST['title']
             blog.description = request.POST['description']
             blog.category = Category.objects.get(id=request.POST['category'])
