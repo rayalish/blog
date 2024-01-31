@@ -43,7 +43,7 @@ class Profile(LoginRequiredMixin, View):
     login_url = '/authe/signin/'
     
     def get(self, request):
-        blogs_correct = Blog.objects.filter(author=request.user)
+        blogs_correct = Blog.objects.filter(author=request.user).order_by('-publish_date')
         context = {
             'blogs_correct': blogs_correct,
             'title': 'Профиль'

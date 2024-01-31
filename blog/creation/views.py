@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic import ListView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 import json
@@ -11,11 +12,13 @@ class Home(View):
     def get(self, request):
         creation = Blog.objects.order_by('-publish_date')
         category = Category.objects.all()
+        comments = Comment.objects.all()
 
         context = {
             'title': 'Все блоги',
             'creation': creation,
             'category': category,
+            'commments': comments
 
         }
 
@@ -54,7 +57,14 @@ class CreateBlog(View):
 
             return render(request, 'creation/creation_page.html', context=context)
         
+class BlogSearchView(ListView):
+    model = Blog
+    template_name = 'creation/search_results.html'
+    context_object_name = 'posts'
 
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        return Blog.objects.filter(title__icontains=query).order_by('-publish_date')
     
 class EditBlog(View):
     def get(self, request, blog_id):
@@ -98,7 +108,7 @@ class CategoryView(View):
 
         selected_category = Category.objects.get(pk=category_id)
 
-        blogs_in_category = Blog.objects.filter(category=selected_category)
+        blogs_in_category = Blog.objects.filter(category=selected_category).order_by('-publish_date')
         
 
         context = {
