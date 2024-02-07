@@ -11,8 +11,16 @@
     <header>
         <div class="logo">Decode Blog</div>
         <div class="search input-group mb-3">
-            <input type="text" class="form-control" placeholder="Поиск по блогам" aria-label="Поиск по блогам" aria-describedby="button-addon2">
-            <button class="btn btn-primary" type="button" id="button-addon2" style="background-color: #00A2DC;">Найти</button>
+            
+            <form method="get" action="{% url 'creation:search' %}">
+                {% csrf_token %}
+                <div class="input-group w-175 h-100">
+                    <input type="text" name="q" class="form-control" placeholder="Поиск по блогам" aria-label="Поиск по блогам" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary h-100" type="submit" id="button-addon2" style="background-color: #00A2DC;">Найти</button>
+                    </div>
+                </div>
+            </form>
         </div>
         {% block div %}
         <div class="right-btns">

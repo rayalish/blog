@@ -12,19 +12,28 @@ class Home(View):
     def get(self, request):
         creation = Blog.objects.order_by('-publish_date')
         category = Category.objects.all()
-        comments = Comment.objects.all()
 
         context = {
             'title': 'Все блоги',
             'creation': creation,
             'category': category,
-            'commments': comments
 
         }
 
         return render(request, 'creation/home_page.html', context=context)
 
+class Detail(View):
+    def get(self, request, blog_id):
+        blog = Blog.objects.get(id=blog_id)
+        comments = Comment.objects.filter(blog_id=blog_id)
 
+        context = {
+            'title': blog.title,
+            'blog': blog,
+            'comments': comments,
+        }
+
+        return render(request, 'creation/detail.html', context=context)
 
 
 class CreateBlog(View):
@@ -57,14 +66,38 @@ class CreateBlog(View):
 
             return render(request, 'creation/creation_page.html', context=context)
         
-class BlogSearchView(ListView):
-    model = Blog
-    template_name = 'creation/search_results.html'
-    context_object_name = 'posts'
-
-    def get_queryset(self):
-        query = self.request.GET.get('q')
-        return Blog.objects.filter(title__icontains=query).order_by('-publish_date')
+class SearchBlogView(View):
+    def get(self, request):
+        form = SearchForm()
+        query = request.GET.get('q')
+        category = Category.objects.all()
+        if query:
+            creation = Blog.objects.filter(title__icontains=query)
+            if creation:
+                context = {
+                    'title': 'Поиск',
+                    'form': form,
+                    'creation': creation,
+                    'category': category,
+                    'query': query
+                }
+                return render(request, 'creation/search_results.html', context=context)
+            else:
+                context = {
+                    'title': 'Поиск',
+                    'txt': 'По вашему запросу ничего не найдено',
+                    'category': category,
+                }
+                return render(request, 'creation/search_results.html', context=context)
+        else:
+            context = {
+                'title': 'Поиск',
+                'txt': 'Пожалуйста, введите ключевые слова для поиска',
+                'category': category,
+            }
+            return render(request, 'creation/search_results.html', context=context)
+            
+        
     
 class EditBlog(View):
     def get(self, request, blog_id):

@@ -143,3 +143,12 @@ body{
 
 
 }
+.txt{
+    margin-left: 150px;
+    margin-top: 30px;
+    margin-right: 150px;
+    margin-bottom: 30px;
+}
+.search{
+    display: flex;
+}

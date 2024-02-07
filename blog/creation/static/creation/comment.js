@@ -1,11 +1,14 @@
+
 const sendComment = (e) => {
+    
     e.preventDefault();
+    
     const commentText = document.querySelector('#commentText').value;
     const blogId = document.querySelector('#blog_id').value;
     const userId = document.querySelector('#user_id').value;
     
     axios.post(
-        'http://localhost:8000/comment/',
+        'http://localhost:8000/comments/',
         {
             blog_id: blogId,
             text: commentText,
