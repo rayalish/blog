@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 
-from .forms import UserSignUpForm, UserSignInForm
+from .forms import *
 from authe.models import User
 from creation.models import Blog, Category
 
@@ -86,3 +86,31 @@ class DeleteBlogView(View):
         movie.delete()
 
         return redirect(reverse_lazy('authe:profile'))
+    
+class SearchProfileView(View):
+    
+    def get(self, request):
+        form = SearchProfileForm()
+        query = request.GET.get('q')
+        if query:
+            blogs_correct = Blog.objects.filter(author=request.user, title__icontains=query).order_by('-publish_date')
+            if blogs_correct:
+                context = {
+                    'title': 'Поиск',
+                    'form': form,
+                    'blogs_correct': blogs_correct,
+                    'query': query
+                }
+                return render(request, 'authe/search_profile.html', context=context)
+            else:
+                context = {
+                    'title': 'Поиск',
+                    'txt': 'По вашему запросу ничего не найдено',
+                }
+                return render(request, 'authe/search_profile.html', context=context)
+        else:
+            context = {
+                'title': 'Поиск',
+                'txt': 'Пожалуйста, введите ключевые слова для поиска',
+            }
+            return render(request, 'authe/search_profile.html', context=context)

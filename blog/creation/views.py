@@ -72,7 +72,7 @@ class SearchBlogView(View):
         query = request.GET.get('q')
         category = Category.objects.all()
         if query:
-            creation = Blog.objects.filter(title__icontains=query)
+            creation = Blog.objects.filter(title__icontains=query).order_by('-publish_date')
             if creation:
                 context = {
                     'title': 'Поиск',

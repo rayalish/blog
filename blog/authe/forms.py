@@ -25,3 +25,6 @@ class UserSignInForm(AuthenticationForm):
             'password': forms.PasswordInput(attrs={'class': 'form-control'}),
         }
 
+
+class SearchProfileForm(forms.Form):
+    query = forms.CharField(label='Поиск', max_length=100)

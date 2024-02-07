@@ -130,3 +130,14 @@ body{
     display: flex;
     justify-content: space-between;
 }
+.profile_header{
+    display: flex;
+    flex-direction: column;
+}
+.first{
+    display: flex;
+    justify-content: space-between;
+}
+.blog{
+    padding: 50px;
+}
