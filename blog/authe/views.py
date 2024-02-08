@@ -44,11 +44,15 @@ class Profile(LoginRequiredMixin, View):
     
     def get(self, request):
         blogs_correct = Blog.objects.filter(author=request.user).order_by('-publish_date')
+        blog_cnt = Blog.objects.filter(author=request.user).count()
         context = {
             'blogs_correct': blogs_correct,
-            'title': 'Профиль'
+            'blog_cnt': blog_cnt,
+            'title': 'Профиль',
+            
         }
         return render(request, 'authe/profile.html', context = context)
+    
 
 
 

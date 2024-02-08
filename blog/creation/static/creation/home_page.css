@@ -1,5 +1,6 @@
 
 header {
+    position: fixed;
     width: 100%;
     height: 130px;
     background: #FFF;
@@ -56,7 +57,7 @@ body{
 
 
 .main {
-    min-height: calc(100vh - 130px);
+    padding-top: 130px;
 }
 
 .home_page_crutches {

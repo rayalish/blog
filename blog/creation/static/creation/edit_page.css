@@ -1,11 +1,12 @@
 
 header {
+    position: fixed;
     width: 100%;
     height: 130px;
     background: #FFF;
-    
     display: flex;
     justify-content: space-between;
+    
 }
 .logo{
     color: #00A2DC;
@@ -15,7 +16,7 @@ header {
     font-weight: 500;
     line-height: normal;
     margin-top: 38px;
-    margin-left: 100px;
+    margin-left: 10%;
 }
 .search{
     width: 321px;
@@ -27,6 +28,7 @@ header {
 .right-btns{
     display: flex;
     justify-content: space-between;
+    margin-right: 10%;
 }
 .signup{
     width: 125px;
@@ -54,5 +56,5 @@ body{
 }
 .main{
     display: flex;
-    padding-top: 130px;
+    padding-top: 210px;
 }

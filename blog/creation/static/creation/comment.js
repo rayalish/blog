@@ -8,7 +8,7 @@ const sendComment = (e) => {
     const userId = document.querySelector('#user_id').value;
     
     axios.post(
-        'http://localhost:8000/comments/',
+        'http://127.0.0.1:8000/comments/',
         {
             blog_id: blogId,
             text: commentText,

@@ -20,49 +20,100 @@
         </div>
 {% endblock %}
 {% block main %}
-    <div class="flex">
-        <div class="main index-main">
-            <div class="blogs">
-                <h1 class="title">Мои блоги</h1>
-                <a href="{% url 'creation:creation' %}" class="btn btn-primary" style="background-color: #00A2DC;">Новый блог</a>
+   
 
-            </div>
-            <div class="importent">
-                {% for blog in blogs_correct %}
-                <div class="creation--item mt-4 pt-4 ">
-                    <div class="creation-img">
-                        <img src="{{ blog.image.url }}" alt="">
-                    </div>
-                    <div class="blog-info">
-                        <p class="publish_date">{{ blog.publish_date }}, {{ blog.category }}, {{ blog.author }}</p>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #00A2DC;">
-                              Еще
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'creation:edit_page' blog.id %}">Редактировать</a></li>
-                                <li><a class="dropdown-item" href="{% url 'authe:delete' blog.id %}">Удалить</a></li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <div class="title-desc">
-                        <h1 class="titlee">{{ blog.title }}</h1>
-                        <p class="discription detail-desc mt-3">{{ blog.description }}</p>
-                    </div>
-                </div>
+    <section class="main index-main">
+        <div class="main-content">
+            <div class="content">
+                <section class="hero">
+                    <div class="container">
+                        <div class="row">
+                            
+                            <div class="col-9 home_page_crutches">
+                            <div class="blogs mt-4 mb-4">
+                                <h1 class="title">Мои блоги</h1>
+                                <a href="{% url 'creation:creation' %}" class="btn btn-primary" style="background-color: #00A2DC;">Новый блог</a>
                 
-                {% endfor %}
+                            </div>
+                            {% for blog in blogs_correct %}
+                                <div class="creation--item mt-4 pt-4 ">
+                
+                                    <div class="creation-img">
+                                        <img src="{{ blog.image.url }}" alt="" class="rounded img-fluid mx-auto d-block">
+                                    </div>
+                    
+                                    <section class="hero crutch">
+                                        <div class="container">
+                                            <div class="row thumbs_stroke">
+                                                <div class="col-4 thumb_container">
+                                                    <div class="blog-info pb_crutch">
+                                                        <div class="data_inline_crutch">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="30" viewBox="0 0 24 30" fill="none">
+                                                                <path d="M16 1.99243V4.34372H8V1.99243H6V4.34372H5C3.89 4.34372 3.01 5.40181 3.01 6.69502L3 23.1541C3 24.4473 3.89 25.5054 5 25.5054H19C20.1 25.5054 21 24.4473 21 23.1541V6.69502C21 5.40181 20.1 4.34372 19 4.34372H18V1.99243H16ZM19 23.1541H5V10.222H19V23.1541Z" fill="black" fill-opacity="0.54"/>
+                                                            </svg>         
+                                                            <p class="publish_date">{{ blog.publish_date }}</p> 
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                                <div class="col-4 thumb_container">
+                                                    <div class="blog-info category_thumb">
+                                                        <div class="data_inline_crutch">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="29" viewBox="0 0 24 29" fill="none">
+                                                                <path opacity="0.54" fill-rule="evenodd" clip-rule="evenodd" d="M21.001 6.77185H19V17.3527H5.99902V19.704C5.99902 20.3529 6.44902 20.8796 7.00002 20.8796H17.999L22 25.5822V7.94749C22 7.29736 21.552 6.77185 21.001 6.77185ZM16.001 2.06812H3C2.448 2.06812 2 2.5948 2 3.24494V19.704L5.999 15.0014H16.001C16.552 15.0014 17 14.4747 17 13.8246V3.24494C17 2.5948 16.552 2.06812 16.001 2.06812Z" fill="black"/>
+                                                            </svg>   
+                                                            <p class="publish_date">{{ blog.category }}</p>
+                                                        </div>
+    
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 thumb_container">
+                                                    <div class="blog-info">
+                                                        <div class="data_inline_crutch">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="30" viewBox="0 0 24 30" fill="none">
+                                                                <path d="M12 14.9245C14.21 14.9245 16 12.8201 16 10.2219C16 7.62376 14.21 5.51935 12 5.51935C9.79 5.51935 8 7.62376 8 10.2219C8 12.8201 9.79 14.9245 12 14.9245ZM12 17.2758C9.33 17.2758 4 18.8512 4 21.9784V24.3297H20V21.9784C20 18.8512 14.67 17.2758 12 17.2758Z" fill="black" fill-opacity="0.54"/>
+                                                            </svg>
+                                                            <p class="publish_date">{{ blog.author }}</p> 
+                                                            
+                                                        </div>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #00A2DC;">
+                                                              Еще
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a class="dropdown-item" href="{% url 'creation:edit_page' blog.id %}">Редактировать</a></li>
+                                                                <li><a class="dropdown-item" href="{% url 'authe:delete' blog.id %}">Удалить</a></li>
+                                                            </ul>
+                                                        </div>
+                                
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                    
+                                    <div class="title_desc">
+                                        <h1>{{ blog.title }}</h1>
+                                        <p class="discription detail-desc mt-3">{{ blog.description }}</p>
+                                    </div>
+                                
+                                </div>
+                            {% endfor %}
+                            </div>
+    
+    
+    
+                            <div class="col-3">
+                                <div class="main2-content">
+                                    <div class="category">
+                                            <h1 class="category_h1 mb-4">{{ user.first_name }}</h1>
+                                            <h4>{{ user.username }}</h4>
+                                            <h5>Кол-во публикаций: {{ blog_cnt }}</h5>
+                                    </div>  
+                                </div>
+                            </div>          
+                    </div>
+                </section> 
             </div>
-
         </div>
-        
-        <div class="secondary index-main">
-            <div class="info">
-                <h3>{{ user.first_name }}</h3>
-                <a href="" class="signin btn btn-primary" style="background-color: #00A2DC;">Редактировать</a>
-            </div>
-        </div>
-    </div>
-
+    </section>
 {% endblock %}
